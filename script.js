@@ -360,11 +360,32 @@ function whatsappMessage(payload) {
   ].join("\n");
 }
 
+function clearLeadErrors() {
+  statusLine.textContent = "";
+  statusLine.classList.remove("error");
+  ["leadName", "leadPhone"].forEach((id) => {
+    const input = document.querySelector(`#${id}`);
+    input.closest(".field").classList.remove("has-error");
+    document.querySelector(`#${id}Error`).textContent = "";
+  });
+}
+
+function showLeadError(input, errorId, message) {
+  statusLine.textContent = message;
+  statusLine.classList.add("error");
+  input.closest(".field").classList.add("has-error");
+  document.querySelector(`#${errorId}`).textContent = message;
+  input.focus();
+}
+
 async function submitLead() {
   if (leadSubmitted) {
     statusLine.textContent = "Your estimate has already been prepared for WhatsApp.";
+    statusLine.classList.remove("error");
     return;
   }
+
+  clearLeadErrors();
 
   const nameInput = document.querySelector("#leadName");
   const phoneInput = document.querySelector("#leadPhone");
@@ -372,14 +393,12 @@ async function submitLead() {
   const leadPhone = phoneInput.value.trim();
 
   if (!leadName) {
-    statusLine.textContent = "Please enter your name.";
-    nameInput.focus();
+    showLeadError(nameInput, "leadNameError", "You have yet to key in your name.");
     return;
   }
 
   if (!leadPhone) {
-    statusLine.textContent = "Please enter your WhatsApp number.";
-    phoneInput.focus();
+    showLeadError(phoneInput, "leadPhoneError", "You have yet to key in your WhatsApp number.");
     return;
   }
 
@@ -414,6 +433,7 @@ async function submitLead() {
   }
 
   statusLine.textContent = "Opening WhatsApp with your estimate summary.";
+  statusLine.classList.remove("error");
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage(payload))}`, "_blank");
 }
 
@@ -431,6 +451,8 @@ document.querySelector("#closeLead").addEventListener("click", () => {
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden", "true");
 });
+document.querySelector("#leadName").addEventListener("input", clearLeadErrors);
+document.querySelector("#leadPhone").addEventListener("input", clearLeadErrors);
 submitLeadButton.addEventListener("click", submitLead);
 
 render();

@@ -186,6 +186,22 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px rgba(201, 165, 93, 0.22);
 }
 
+.field.has-error input {
+  border-color: var(--coral);
+  background: #fff7f3;
+}
+
+.field.has-error input:focus {
+  box-shadow: 0 0 0 3px rgba(196, 91, 61, 0.18);
+}
+
+.field-error {
+  min-height: 16px;
+  color: var(--coral);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .checkline, .switchline {
   display: flex;
   align-items: center;
@@ -458,6 +474,14 @@ input:focus, select:focus, textarea:focus {
   margin: 12px 0 0;
   color: var(--yellow-dark);
   font-weight: 760;
+}
+
+.status.error {
+  border: 1px solid rgba(196, 91, 61, 0.22);
+  border-radius: 7px;
+  background: #fff7f3;
+  color: var(--coral);
+  padding: 9px 10px;
 }
 
 .modal-footer {
