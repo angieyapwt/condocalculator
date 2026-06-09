@@ -1,14 +1,14 @@
 :root {
-  --bg: #fff44f;
-  --ink: #1d2830;
-  --muted: #5e6470;
-  --line: #f1d600;
-  --panel: rgba(255, 255, 255, 0.92);
-  --yellow: #ffe600;
-  --yellow-dark: #7d6500;
+  --bg: #f3eadc;
+  --ink: #2f2923;
+  --muted: #756d63;
+  --line: #d7c7ad;
+  --panel: rgba(255, 252, 247, 0.92);
+  --yellow: #c9a55d;
+  --yellow-dark: #6f542c;
   --mint: #13795b;
   --coral: #c45b3d;
-  --shadow: 0 22px 60px rgba(126, 101, 0, 0.18);
+  --shadow: 0 22px 60px rgba(73, 55, 35, 0.14);
 }
 
 * { box-sizing: border-box; }
@@ -17,8 +17,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    linear-gradient(135deg, rgba(255, 246, 0, 0.8), rgba(255, 251, 148, 0.78) 42%, rgba(255, 255, 255, 0.9)),
-    repeating-linear-gradient(90deg, rgba(255, 230, 0, 0.18) 0 1px, transparent 1px 42px);
+    linear-gradient(135deg, rgba(243, 234, 220, 0.96), rgba(252, 247, 238, 0.9) 45%, rgba(255, 255, 255, 0.9)),
+    repeating-linear-gradient(90deg, rgba(145, 116, 75, 0.08) 0 1px, transparent 1px 42px);
   color: var(--ink);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 0;
@@ -67,7 +67,7 @@ h1 {
 }
 
 .hero-panel, .calculator, .result-card, .sense-check, .modal-card, .health-card {
-  border: 1px solid rgba(126, 101, 0, 0.22);
+  border: 1px solid rgba(111, 84, 44, 0.18);
   background: var(--panel);
   border-radius: 8px;
   box-shadow: var(--shadow);
@@ -95,7 +95,7 @@ h1 {
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   padding: 6px;
-  background: #fff36c;
+  background: #e7d8bf;
   border: 1px solid var(--line);
   border-radius: 8px;
 }
@@ -105,13 +105,13 @@ h1 {
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: #695400;
+  color: #715e45;
   font-weight: 800;
   cursor: pointer;
 }
 
 .mode-btn.active {
-  background: #fff;
+  background: #fffaf2;
   color: var(--yellow-dark);
   box-shadow: 0 6px 20px rgba(95, 70, 0, 0.12);
 }
@@ -167,7 +167,7 @@ body.mode-both .form-panel { display: block; }
 
 input, select, textarea {
   width: 100%;
-  border: 1px solid #dfd3a4;
+  border: 1px solid #d8c7ab;
   border-radius: 7px;
   background: #fff;
   color: var(--ink);
@@ -183,7 +183,7 @@ textarea { padding: 10px 12px; resize: vertical; }
 
 input:focus, select:focus, textarea:focus {
   border-color: var(--yellow);
-  box-shadow: 0 0 0 3px rgba(246, 201, 14, 0.24);
+  box-shadow: 0 0 0 3px rgba(201, 165, 93, 0.22);
 }
 
 .checkline, .switchline {
@@ -214,8 +214,8 @@ input:focus, select:focus, textarea:focus {
   height: 26px;
   flex: 0 0 auto;
   border-radius: 999px;
-  background: #d8d2b2;
-  box-shadow: inset 0 0 0 1px rgba(126, 101, 0, 0.2);
+  background: #cfc2ae;
+  box-shadow: inset 0 0 0 1px rgba(111, 84, 44, 0.18);
 }
 
 .switchline span::after {
@@ -257,7 +257,7 @@ input:focus, select:focus, textarea:focus {
   top: 20px;
   align-self: start;
   padding: 22px;
-  background: linear-gradient(180deg, #fffdf3, #ffffff);
+  background: linear-gradient(180deg, #fffaf2, #ffffff);
 }
 
 .breakdown {
@@ -270,7 +270,7 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   justify-content: space-between;
   gap: 14px;
-  border-top: 1px solid #f0e5b9;
+  border-top: 1px solid #eadfce;
   padding-top: 8px;
   color: var(--muted);
   font-size: 0.84rem;
@@ -286,7 +286,7 @@ input:focus, select:focus, textarea:focus {
 .row.warning strong { color: var(--coral); }
 .row.section {
   margin-top: 8px;
-  border-top-color: #d7bd00;
+  border-top-color: #c9a55d;
   color: var(--yellow-dark);
   font-size: 0.78rem;
   font-weight: 900;
@@ -348,7 +348,7 @@ input:focus, select:focus, textarea:focus {
   height: 28px;
   border-radius: 50%;
   background: var(--yellow);
-  color: #2c2100;
+  color: #2f2923;
   font-weight: 900;
 }
 
@@ -376,11 +376,11 @@ input:focus, select:focus, textarea:focus {
   border: 0;
   border-radius: 7px;
   background: var(--yellow);
-  color: #2c2100;
+  color: #2f2923;
   font-weight: 900;
   padding: 0 18px;
   cursor: pointer;
-  box-shadow: 0 12px 24px rgba(166, 111, 0, 0.22);
+  box-shadow: 0 12px 24px rgba(111, 84, 44, 0.2);
 }
 
 .cta.full { width: 100%; margin-top: 16px; }
@@ -408,9 +408,9 @@ input:focus, select:focus, textarea:focus {
 
 .estimate-box {
   margin: 14px 0 18px;
-  border: 1px solid #f0e5b9;
+  border: 1px solid #eadfce;
   border-radius: 8px;
-  background: #fffdf0;
+  background: #fffaf2;
   padding: 14px;
 }
 
@@ -435,9 +435,9 @@ input:focus, select:focus, textarea:focus {
   right: 14px;
   width: 34px;
   height: 34px;
-  border: 1px solid #eadca8;
+  border: 1px solid #d8c7ab;
   border-radius: 7px;
-  background: #fff9e1;
+  background: #fffaf2;
   cursor: pointer;
 }
 
@@ -455,10 +455,10 @@ input:focus, select:focus, textarea:focus {
 }
 
 .modal-footer {
-  border-top: 1px solid #f0e5b9;
+  border-top: 1px solid #eadfce;
   margin-top: 16px;
   padding-top: 14px;
-  color: #5c5017;
+  color: #6f542c;
   font-size: 0.84rem;
   line-height: 1.5;
   text-align: center;
