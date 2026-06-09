@@ -20,6 +20,8 @@ const healthBadge = document.querySelector("#healthBadge");
 const readinessText = document.querySelector("#readinessText");
 const nextStepText = document.querySelector("#nextStepText");
 const modalEstimate = document.querySelector("#modalEstimate");
+const submitLeadButton = document.querySelector("#submitLead");
+let leadSubmitted = false;
 
 function money(value) {
   const sign = value < 0 ? "-" : "";
@@ -56,6 +58,8 @@ function values() {
   const rate = (name) => Number(data.get(name)) || 0;
 
   const price = get("purchasePrice");
+  const cpfAvailable = get("cpf");
+  const cashSavings = get("cash");
   const stampBasis = price;
   const maxBankLoan = price * 0.75;
   const approvedLoan = Math.min(get("loan"), maxBankLoan);
@@ -71,9 +75,9 @@ function values() {
   const downpayment = Math.max(price - approvedLoan, 0);
   const cashDownpaymentGuide = price * 0.05;
   const cpfCashDownpaymentGuide = price * 0.2;
-  const cpfUsed = Math.min(get("cpf"), Math.max(downpayment - cashDownpaymentGuide, 0) + bsd + absd);
+  const cpfUsed = Math.min(cpfAvailable, Math.max(downpayment - cashDownpaymentGuide, 0) + bsd + absd);
   const cashNeeded = Math.max(downpayment - cpfUsed, 0) + bsd + absd + buyerLegal + buyerMisc + buyerCommission;
-  const cashTopUpAfterCpf = Math.max(cashNeeded - get("cash"), 0);
+  const cashTopUpAfterCpf = Math.max(cashNeeded - cashSavings, 0);
   const purchaseRequirement = downpayment + bsd + absd + buyerLegal + buyerMisc + buyerCommission;
 
   const salePrice = get("sellingPrice");
@@ -93,6 +97,8 @@ function values() {
 
   return {
     price,
+    cpfAvailable,
+    cashSavings,
     stampBasis,
     maxBankLoan,
     approvedLoan,
@@ -355,20 +361,37 @@ function whatsappMessage(payload) {
 }
 
 async function submitLead() {
+  if (leadSubmitted) {
+    statusLine.textContent = "Your estimate has already been prepared for WhatsApp.";
+    return;
+  }
+
   if (!document.querySelector("#leadConsent").checked) {
     statusLine.textContent = "Please tick the consent box first.";
     return;
   }
 
+  leadSubmitted = true;
+  submitLeadButton.disabled = true;
+  submitLeadButton.textContent = "Opening WhatsApp...";
+
   const payload = leadPayload();
 
   if (FORM_ENDPOINT) {
-    await fetch(FORM_ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload),
-    });
+    try {
+      await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      leadSubmitted = false;
+      submitLeadButton.disabled = false;
+      submitLeadButton.textContent = "Sense check and open Whatsapp";
+      statusLine.textContent = "Unable to record the details. Please try again.";
+      return;
+    }
   } else {
     localStorage.setItem("condoCalculatorLastLead", JSON.stringify(payload));
   }
@@ -391,6 +414,6 @@ document.querySelector("#closeLead").addEventListener("click", () => {
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden", "true");
 });
-document.querySelector("#submitLead").addEventListener("click", submitLead);
+submitLeadButton.addEventListener("click", submitLead);
 
 render();
