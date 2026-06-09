@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Condo Buy & Sell Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>Plan your next condo move with clearer cash numbers.</h1>
+          <p class="intro">Estimate the cash and CPF needed to buy, the sale proceeds from selling, or the net position when doing both.</p>
+        </div>
+        <aside class="hero-panel">
+          <span class="panel-label">Focus result</span>
+          <strong id="heroMetric">$377,600</strong>
+          <small id="heroCaption">Estimated buyer cash / CPF required</small>
+        </aside>
+      </section>
+
+      <section class="workspace">
+        <div class="toggle-wrap" role="tablist" aria-label="Calculator mode">
+          <button class="mode-btn active" type="button" data-mode="buying">I am buying condo</button>
+          <button class="mode-btn" type="button" data-mode="selling">I am selling condo</button>
+          <button class="mode-btn" type="button" data-mode="both">Buying & selling condo</button>
+        </div>
+
+        <form class="calculator" id="calculator">
+          <section class="form-panel buyer-panel active" data-panel="buying">
+            <div class="panel-heading">
+              <h2>Condo buyer calculator</h2>
+            </div>
+            <div class="grid">
+              <label class="field">Private condo purchase price<input class="money-input" name="purchasePrice" value="$1,500,000"></label>
+              <label class="field">Approved loan amount<span class="hint">Capped at 75% loan-to-value.</span><input class="money-input" name="loan" value="$1,125,000"></label>
+              <label class="field">Total CPF OA available<input class="money-input" name="cpf" value="$200,000"></label>
+              <label class="field">Cash savings available<input class="money-input" name="cash" value="$180,000"></label>
+              <label class="field">ABSD profile<select name="absd">
+                <option value="0">SC buying 1st Property - 0%</option>
+                <option value="20">SC buying 2nd Property - 20%</option>
+                <option value="5">PR buying 1st Property - 5%</option>
+                <option value="30">PR buying 2nd Property - 30%</option>
+              </select></label>
+              <label class="field">Legal fee<input class="money-input" name="buyerLegal" value="$3,000"><span class="hint">Usually between $2,500 to $4,000.</span></label>
+              <label class="field">Miscellaneous fee (cash only)<input class="money-input" name="buyerMisc" value="$1,000"><span class="hint">Usually between $1,000 to $2,500.</span></label>
+            </div>
+            <label class="switchline"><input type="checkbox" name="buyerCommissionOn" checked><span></span> Include buyer agent commission + GST</label>
+            <div class="inline-field" data-optional="buyerCommission">
+              <label>Commission rate (%)<input type="number" name="buyerCommissionRate" value="1" min="0" step="0.1"></label>
+            </div>
+          </section>
+
+          <section class="form-panel seller-panel" data-panel="selling">
+            <div class="panel-heading">
+              <h2>Condo seller calculator</h2>
+            </div>
+            <div class="grid">
+              <label class="field">Selling price<input class="money-input" name="sellingPrice" value="$1,350,000"></label>
+              <label class="field">Outstanding loan<input class="money-input" name="outstandingLoan" value="$760,000"></label>
+              <label class="field">CPF refund with accrued interest<input class="money-input" name="cpfRefund" value="$220,000"></label>
+              <label class="field">Seller stamp duty, if any<input class="money-input" name="ssd" value="$0"></label>
+              <label class="field">Bank penalty, if any<input class="money-input" name="bankPenalty" value="$0"></label>
+              <label class="field">Legal fee<input class="money-input" name="sellerLegal" value="$3,000"><span class="hint">Usually between $2,500 to $4,000.</span></label>
+              <label class="field">Miscellaneous fee (cash only)<input class="money-input" name="sellerMisc" value="$1,000"><span class="hint">Usually between $1,000 to $2,500.</span></label>
+            </div>
+            <label class="switchline"><input type="checkbox" name="sellerCommissionOn" checked><span></span> Include seller agent commission + GST</label>
+            <div class="inline-field" data-optional="sellerCommission">
+              <label>Commission rate (%)<input type="number" name="sellerCommissionRate" value="2" min="0" step="0.1"></label>
+            </div>
+          </section>
+
+          <aside class="result-card">
+            <span class="panel-label" id="resultLabel">Estimated buyer cash / CPF required</span>
+            <strong id="primaryResult">$377,600</strong>
+            <div class="breakdown" id="breakdown"></div>
+          </aside>
+        </form>
+
+        <section class="health-card" aria-labelledby="healthTitle">
+          <div class="health-heading">
+            <h2 id="healthTitle">Financial Health Snapshot</h2>
+            <span class="health-badge" id="healthBadge">Healthy</span>
+          </div>
+          <div class="health-list">
+            <div class="health-item">
+              <span>1</span>
+              <p><strong>Readiness view:</strong> <span id="readinessText">Based on the keyed-in figures, this condo upgrade appears to have a good starting position.</span></p>
+            </div>
+            <div class="health-item">
+              <span>2</span>
+              <p><strong>Suggested next step:</strong> <span id="nextStepText">The figures look workable as a first pass. A review can help refine the realistic condo upgrade budget, timeline, and suitable property options.</span></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="sense-check">
+          <div>
+            <h2>Want to sense-check your numbers before making the next move?</h2>
+            <p>Share your estimate and gain a clearer understanding of your potential budget and property options.</p>
+          </div>
+          <button class="cta" id="openLead" type="button">Sense check my figures</button>
+        </section>
+      </section>
+    </main>
+
+    <div class="modal" id="leadModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="close" type="button" id="closeLead" aria-label="Close">X</button>
+        <h2 id="modalTitle">Share your figures for a quick sense-check</h2>
+        <div class="estimate-box">
+          <h3>Estimate summary</h3>
+          <div id="modalEstimate"></div>
+        </div>
+        <label class="field">Name<input name="leadName" id="leadName" autocomplete="name"></label>
+        <label class="field">WhatsApp number<input name="leadPhone" id="leadPhone" type="tel" placeholder="+65 9123 4567" autocomplete="tel"></label>
+        <label class="field">Preferred contact time<select id="leadTime">
+          <option>Anytime</option>
+          <option>Morning</option>
+          <option>Afternoon</option>
+          <option>Evening</option>
+        </select></label>
+        <label class="field">Notes<textarea id="leadNotes" rows="3"></textarea></label>
+        <label class="checkline consent"><input type="checkbox" id="leadConsent"> By submitting this form, I consent to my name, contact details, notes, and calculator figures being collected and used solely to review this enquiry, prepare an estimate record, and contact me about the figures provided.</label>
+        <button class="cta full" id="submitLead" type="button">Sense check and open Whatsapp</button>
+        <div class="modal-footer">
+          <p>Submission records the details and then opens WhatsApp with the estimate details.</p>
+          <p>By Angie Yap · CEA Reg No.: R067805D · WhatsApp me at +6583963088</p>
+        </div>
+        <p class="status" id="status"></p>
+      </div>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
