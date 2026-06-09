@@ -366,6 +366,23 @@ async function submitLead() {
     return;
   }
 
+  const nameInput = document.querySelector("#leadName");
+  const phoneInput = document.querySelector("#leadPhone");
+  const leadName = nameInput.value.trim();
+  const leadPhone = phoneInput.value.trim();
+
+  if (!leadName) {
+    statusLine.textContent = "Please enter your name.";
+    nameInput.focus();
+    return;
+  }
+
+  if (!leadPhone) {
+    statusLine.textContent = "Please enter your WhatsApp number.";
+    phoneInput.focus();
+    return;
+  }
+
   if (!document.querySelector("#leadConsent").checked) {
     statusLine.textContent = "Please tick the consent box first.";
     return;
