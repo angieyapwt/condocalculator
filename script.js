@@ -1,4 +1,4 @@
-const FORM_ENDPOINT = "";
+fconst FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzKQK18-FTOyS7u0e-XN4_hEtEbaxemlw6PWOenvCpsCBovOm9799K7kAjbSu8kAtZUtA/exec";
 const WHATSAPP_NUMBER = "6583963088";
 const GST_RATE = 0.09;
 
