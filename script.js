@@ -378,6 +378,11 @@ function showLeadError(input, errorId, message) {
   input.focus();
 }
 
+function isValidSingaporeMobile(value) {
+  const phone = String(value).replace(/[\s-]/g, "");
+  return /^(?:\+65)?[89]\d{7}$/.test(phone);
+}
+
 async function submitLead() {
   if (leadSubmitted) {
     statusLine.textContent = "Your estimate has already been prepared for WhatsApp.";
@@ -399,6 +404,11 @@ async function submitLead() {
 
   if (!leadPhone) {
     showLeadError(phoneInput, "leadPhoneError", "You have yet to key in your WhatsApp number.");
+    return;
+  }
+
+  if (!isValidSingaporeMobile(leadPhone)) {
+    showLeadError(phoneInput, "leadPhoneError", "Please rekey a valid Singapore mobile number.");
     return;
   }
 
