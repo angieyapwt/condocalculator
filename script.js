@@ -146,6 +146,8 @@ function section(label) {
 function buyerRows(v) {
   const rows = [
     row("Private condo purchase price", v.price),
+    row("Max bank loan at 75% LTV", v.maxBankLoan),
+    row("Approved loan", -v.approvedLoan, "positive"),
     row("20% CPF and/or cash downpayment guide", v.cpfCashDownpaymentGuide),
     row("5% cash downpayment guide", v.cashDownpaymentGuide),
     row("Stamp duty basis", v.stampBasis),
@@ -168,8 +170,6 @@ function buyerRows(v) {
   }
 
   rows.push(
-    row("Max bank loan at 75% LTV", v.maxBankLoan),
-    row("Approved loan", -v.approvedLoan, "positive"),
     row("CPF OA", -v.cpfUsed, "positive"),
     row("Cash needed before estimated sale proceeds", v.cashNeeded, v.cashNeeded > 0 ? "warning" : "positive"),
     row("Estimated cash top-up needed after CPF OA", v.cashTopUpAfterCpf, v.cashTopUpAfterCpf > 0 ? "warning" : "positive")
