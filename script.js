@@ -66,12 +66,14 @@ function values() {
   const bsd = stampDuty(stampBasis);
   const absdRate = Number(data.get("absd")) || 0;
   const absd = stampBasis * (absdRate / 100);
+  const totalStampDuty = bsd + absd;
   const buyerLegal = get("buyerLegal");
   const buyerMisc = get("buyerMisc");
   const buyerCommissionRate = rate("buyerCommissionRate");
   const buyerCommission = data.get("buyerCommissionOn")
     ? price * (buyerCommissionRate / 100) * (1 + GST_RATE)
     : 0;
+  const loanShortfall = Math.max(maxBankLoan - approvedLoan, 0);
   const downpayment = Math.max(price - approvedLoan, 0);
   const cashDownpaymentGuide = price * 0.05;
   const cpfCashDownpaymentGuide = price * 0.2;
@@ -105,10 +107,12 @@ function values() {
     bsd,
     absdRate,
     absd,
+    totalStampDuty,
     buyerLegal,
     buyerMisc,
     buyerCommission,
     buyerCommissionRate,
+    loanShortfall,
     downpayment,
     cashDownpaymentGuide,
     cpfCashDownpaymentGuide,
@@ -140,22 +144,38 @@ function section(label) {
 }
 
 function buyerRows(v) {
-  return [
+  const rows = [
     row("Private condo purchase price", v.price),
+    row("20% CPF and/or cash downpayment guide", v.cpfCashDownpaymentGuide),
+    row("5% cash downpayment guide", v.cashDownpaymentGuide),
     row("Stamp duty basis", v.stampBasis),
     row("Buyer Stamp Duty", v.bsd),
     row(`ABSD at ${v.absdRate}%`, v.absd),
+  ];
+
+  if (v.absd > 0) {
+    rows.push(row("Total Stamp Duty", v.totalStampDuty, "warning"));
+  }
+
+  rows.push(
     row("Legal fee", v.buyerLegal),
     row("Miscellaneous fee (cash only)", v.buyerMisc),
-    row("Agent commission + GST (cash only)", v.buyerCommission),
+    row("Agent commission + GST (cash only)", v.buyerCommission)
+  );
+
+  if (v.loanShortfall > 0) {
+    rows.push(row("Loan shortfall to be funded", v.loanShortfall, "warning"));
+  }
+
+  rows.push(
     row("Max bank loan at 75% LTV", v.maxBankLoan),
     row("Approved loan", -v.approvedLoan, "positive"),
-    row("5% cash downpayment guide", v.cashDownpaymentGuide),
-    row("20% CPF and/or cash downpayment guide", v.cpfCashDownpaymentGuide),
-    row("CPF OA used", -v.cpfUsed, "positive"),
-    row("Cash needed", v.cashNeeded, v.cashNeeded > 0 ? "warning" : "positive"),
-    row("Estimated cash top-up needed after CPF OA", v.cashTopUpAfterCpf, v.cashTopUpAfterCpf > 0 ? "warning" : "positive"),
-  ];
+    row("CPF OA", -v.cpfUsed, "positive"),
+    row("Cash needed before estimated sale proceeds", v.cashNeeded, v.cashNeeded > 0 ? "warning" : "positive"),
+    row("Estimated cash top-up needed after CPF OA", v.cashTopUpAfterCpf, v.cashTopUpAfterCpf > 0 ? "warning" : "positive")
+  );
+
+  return rows;
 }
 
 function sellerRows(v) {
