@@ -124,9 +124,15 @@ h1 {
   padding: 24px;
 }
 
-.form-panel { display: none; }
+.form-panel {
+  display: none;
+  grid-column: 1;
+}
 .form-panel.active { display: block; }
 body.mode-both .form-panel { display: block; }
+body.mode-both .seller-panel { order: 1; }
+body.mode-both .buyer-panel { order: 2; }
+body.mode-both .result-card { order: 3; grid-row: 1 / span 2; }
 
 .panel-heading {
   margin-bottom: 18px;
@@ -269,6 +275,8 @@ input:focus, select:focus, textarea:focus {
 }
 
 .result-card {
+  grid-column: 2;
+  grid-row: 1;
   position: sticky;
   top: 20px;
   align-self: start;
@@ -500,6 +508,8 @@ input:focus, select:focus, textarea:focus {
 
 @media (max-width: 860px) {
   .hero, .calculator { grid-template-columns: 1fr; }
+  .form-panel, .result-card { grid-column: auto; grid-row: auto; }
+  body.mode-both .result-card { grid-row: auto; }
   .toggle-wrap { grid-template-columns: 1fr; }
   .sense-check, .health-heading { display: block; }
   .health-badge { display: inline-block; margin-top: 10px; }

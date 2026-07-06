@@ -294,7 +294,24 @@ function setMode(mode) {
 }
 
 function normaliseMoneyInput(input) {
-  input.value = money(numberFromMoney(input.value));
+  const raw = String(input.value || "");
+  if (!/\d/.test(raw)) {
+    input.value = "";
+    return;
+  }
+  input.value = money(numberFromMoney(raw));
+}
+
+function formatMoneyInput(input) {
+  const raw = String(input.value || "");
+  if (!/\d/.test(raw)) {
+    input.value = "";
+    return;
+  }
+  input.value = money(numberFromMoney(raw));
+  try {
+    input.setSelectionRange(input.value.length, input.value.length);
+  } catch (error) {}
 }
 
 function leadPayload() {
@@ -448,7 +465,12 @@ async function submitLead() {
 }
 
 buttons.forEach((button) => button.addEventListener("click", () => setMode(button.dataset.mode)));
-form.addEventListener("input", render);
+form.addEventListener("input", (event) => {
+  if (event.target.classList && event.target.classList.contains("money-input")) {
+    formatMoneyInput(event.target);
+  }
+  render();
+});
 document.querySelectorAll(".money-input").forEach((input) => {
   input.addEventListener("blur", () => normaliseMoneyInput(input));
 });

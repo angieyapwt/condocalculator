@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Condo Buy & Sell Calculator</title>
-    <link rel="stylesheet" href="styles.css?v=20260609-8">
+    <link rel="stylesheet" href="styles.css?v=20260706-1">
   </head>
   <body>
     <main class="app">
@@ -33,18 +33,18 @@
               <h2>Condo buyer calculator</h2>
             </div>
             <div class="grid">
-              <label class="field">Private condo purchase price<input class="money-input" name="purchasePrice" value="$1,500,000"></label>
-              <label class="field">Approved loan amount<span class="hint">Capped at 75% loan-to-value.</span><input class="money-input" name="loan" value="$1,125,000"></label>
-              <label class="field">Total CPF OA available<input class="money-input" name="cpf" value="$200,000"></label>
-              <label class="field">Cash savings available<input class="money-input" name="cash" value="$180,000"></label>
+              <label class="field">Private condo purchase price<input class="money-input" name="purchasePrice" value=""></label>
+              <label class="field">Approved loan amount<span class="hint">Capped at 75% loan-to-value.</span><input class="money-input" name="loan" value=""></label>
+              <label class="field">Total CPF OA available<input class="money-input" name="cpf" value=""></label>
+              <label class="field">Cash savings available<input class="money-input" name="cash" value=""></label>
               <label class="field">ABSD profile<select name="absd">
                 <option value="0">SC buying 1st Property - 0%</option>
                 <option value="20">SC buying 2nd Property - 20%</option>
                 <option value="5">PR buying 1st Property - 5%</option>
                 <option value="30">PR buying 2nd Property - 30%</option>
               </select></label>
-              <label class="field">Legal fee<input class="money-input" name="buyerLegal" value="$3,000"><span class="hint">Usually between $2,500 to $4,000.</span></label>
-              <label class="field">Miscellaneous fee (cash only)<input class="money-input" name="buyerMisc" value="$1,000"><span class="hint">Usually between $1,000 to $2,500.</span></label>
+              <label class="field">Legal fee<input class="money-input" name="buyerLegal" value="$3,000"><span class="hint">Usually around $2,500 to $3,000.</span></label>
+              <label class="field">Miscellaneous fee (cash only)<input class="money-input" name="buyerMisc" value="$1,000"><span class="hint">Usually between $500 to $1,000.</span></label>
             </div>
             <label class="switchline"><input type="checkbox" name="buyerCommissionOn" checked><span></span> Include buyer agent commission + GST</label>
             <div class="inline-field" data-optional="buyerCommission">
@@ -57,13 +57,13 @@
               <h2>Condo seller calculator</h2>
             </div>
             <div class="grid">
-              <label class="field">Selling price<input class="money-input" name="sellingPrice" value="$1,350,000"></label>
-              <label class="field">Outstanding loan<input class="money-input" name="outstandingLoan" value="$760,000"></label>
-              <label class="field">CPF refund with accrued interest<input class="money-input" name="cpfRefund" value="$220,000"></label>
+              <label class="field">Selling price<input class="money-input" name="sellingPrice" value=""></label>
+              <label class="field">Outstanding loan<input class="money-input" name="outstandingLoan" value=""></label>
+              <label class="field">CPF refund with accrued interest<input class="money-input" name="cpfRefund" value=""></label>
               <label class="field">Seller stamp duty, if any<input class="money-input" name="ssd" value="$0"></label>
               <label class="field">Bank penalty, if any<input class="money-input" name="bankPenalty" value="$0"></label>
-              <label class="field">Legal fee<input class="money-input" name="sellerLegal" value="$3,000"><span class="hint">Usually between $2,500 to $4,000.</span></label>
-              <label class="field">Miscellaneous fee (cash only)<input class="money-input" name="sellerMisc" value="$1,000"><span class="hint">Usually between $1,000 to $2,500.</span></label>
+              <label class="field">Legal fee<input class="money-input" name="sellerLegal" value="$3,000"><span class="hint">Usually around $2,500 to $3,000.</span></label>
+              <label class="field">Miscellaneous fee (cash only)<input class="money-input" name="sellerMisc" value="$1,000"><span class="hint">Usually between $500 to $1,000.</span></label>
             </div>
             <label class="switchline"><input type="checkbox" name="sellerCommissionOn" checked><span></span> Include seller agent commission + GST</label>
             <div class="inline-field" data-optional="sellerCommission">
@@ -132,6 +132,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=20260609-8" defer></script>
+    <script src="script.js?v=20260706-1" defer></script>
   </body>
 </html>
