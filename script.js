@@ -71,7 +71,9 @@ function values() {
   const buyerMisc = get("buyerMisc");
   const buyerCommissionRate = rate("buyerCommissionRate");
   const buyerCommission = data.get("buyerCommissionOn")
-    ? price * (buyerCommissionRate / 100) * (1 + GST_RATE)
+    ? (/\d/.test(String(data.get("buyerCommissionOverride") || ""))
+      ? Math.max(get("buyerCommissionOverride"), 0)
+      : price * (buyerCommissionRate / 100) * (1 + GST_RATE))
     : 0;
   const loanShortfall = Math.max(maxBankLoan - approvedLoan, 0);
   const downpayment = Math.max(price - approvedLoan, 0);
@@ -91,7 +93,9 @@ function values() {
   const sellerMisc = get("sellerMisc");
   const sellerCommissionRate = rate("sellerCommissionRate");
   const sellerCommission = data.get("sellerCommissionOn")
-    ? salePrice * (sellerCommissionRate / 100) * (1 + GST_RATE)
+    ? (/\d/.test(String(data.get("sellerCommissionOverride") || ""))
+      ? Math.max(get("sellerCommissionOverride"), 0)
+      : salePrice * (sellerCommissionRate / 100) * (1 + GST_RATE))
     : 0;
   const saleDeductions = outstandingLoan + cpfRefund + ssd + bankPenalty + sellerLegal + sellerMisc + sellerCommission;
   const saleProceeds = salePrice - saleDeductions;
@@ -508,3 +512,4 @@ document.querySelector("#leadPhone").addEventListener("input", clearLeadErrors);
 submitLeadButton.addEventListener("click", submitLead);
 
 render();
+
